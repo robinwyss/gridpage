@@ -26,7 +26,7 @@ $(function($) {
     var gridStack = $('.grid-stack').data('gridstack');
 
     var addWidget = function(node){
-      gridStack.addWidget($('<div><div class="grid-stack-item-content" >'+node.content+'</div></div>'),
+      return gridStack.addWidget($('<div><div class="grid-stack-item-content"><div>'+node.content+'</div></div></div>'),
           node.x, node.y, node.width, node.height);
     }
 
@@ -63,8 +63,29 @@ $(function($) {
 
 
   $('#add-new-widget').click(function(){
-    gr.addWidget({x:0,y:0,width:2,height:2,content:'blop'});
+    var editorPane = $('#editorPane');
+    editorPane.show();
+    editorPane.append('<div>');
+    var editor = editorPane.find('div');
+    editorPane.append('<button type="button" class="btn btn-primary saveBtn">Save</button>');
+    var saveBtn = editorPane.find('.saveBtn');
+    editorPane.append('<button type="button" class="btn closeBtn">Close</button>');
+    var closeBtn = editorPane.find('.closeBtn');
+
+    editor.summernote();
+    saveBtn.click(function(){
+      var content = editor.summernote('code');
+      gridManager.addWidget({x:0,y:0,width:2,height:2,content:content});
+      editor.summernote('destroy');
+      editorPane.html('');
+    });
+
+    closeBtn.click(function(){
+      editor.summernote('destroy');
+      editorPane.html('');
+    });
   });
+  
   $('#save').click(gridManager.save);
   gridManager.load();
 

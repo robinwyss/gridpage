@@ -11,47 +11,12 @@
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.3.0/gridstack.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css">
-
-
 
   <style type="text/css">
-    .grid-stack {
-      border: 1px dashed grey;
-    }
-
-    .grid-stack-item-content {
-      border: 2px dashed grey;
-    }
-
-    #placeholder {
-      height: 400px;
-    }
-
-    .editorPane {
-      height: 500px
-    }
-
     .grid-stack-item-content div {
       display: inline-block;
       width: 100%;
       height: 100%;
-    }
-
-    div.grid-element-edit {
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      background-color: grey;
-      width: 100%;
-      height: 100%;
-      opacity: 0.5;
-      display: none;
-      text-align: right;
-    }
-
-    .grid-stack-item-content:hover div.grid-element-edit {
-      display: block;
     }
 
     .grid-stack>.grid-stack-item>div.grid-stack-item-content {
@@ -62,29 +27,19 @@
 </head>
 
 <body data-gr-c-s-loaded="true" cz-shortcut-listen="true" style="cursor: auto;">
-  <nav class="navbar navbar-default navbar-static-top">
-    <ul class="nav navbar-nav">
-      <li role="presentation"><a id="add-new-widget" href="#">Add</a></li>
-      <li role="presentation"><a id="save" href="index.html#">Save</a></li>
-    </ul>
-  </nav>
-  <div id="editorPane" style="display: none;"></div>
   <div class="container-fluid">
     <div class="grid-stack grid-stack-instance-533" data-gs-current-height="2" style="height: 140px"></div>
   </div>
 
-  <div id="placeholder"></div>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.3.0/gridstack.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.3.0/gridstack.jQueryUI.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.min.js"></script>
   <script src="src/storage.js"></script>
   <script src="src/grid-manager.js"></script>
-  <script src="src/editor.js"></script>
-  <script src="app.js"></script>
+  <script src="app-view.js"></script>
 
 
 </body>

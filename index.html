@@ -65,8 +65,12 @@
   <nav class="navbar navbar-default navbar-static-top">
     <ul class="nav navbar-nav">
       <li role="presentation"><a id="add-new-widget" href="#">Add</a></li>
-      <li role="presentation"><a id="save" href="index.html#">Save</a></li>
+      <li role="presentation"><a id="save" href="#">Save</a></li>
+      <li role="presentation"><a id="login" href="l#">Login</a></li>
     </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><span id="nickname">Link</span></li>
+      </ul>
   </nav>
   <div id="editorPane" style="display: none;"></div>
   <div class="container-fluid">
@@ -74,6 +78,7 @@
   </div>
 
   <div id="placeholder"></div>
+  <script src="//cdn.auth0.com/js/lock/10.15/lock.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
@@ -81,6 +86,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.3.0/gridstack.jQueryUI.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
   <script src="src/storage.js"></script>
   <script src="src/grid-manager.js"></script>
   <script src="src/editor.js"></script>

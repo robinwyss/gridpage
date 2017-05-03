@@ -1,10 +1,7 @@
 var modules = modules || {};
 modules.gridManager = {
-  init: function(storage, $) {
-    if(!storage){
-      throw 'error loading module, parameter storage is missing';
-    }
-    if(!$){
+  init: function($) {
+    if (!$) {
       throw 'error loading module, parameter jQuery is missing';
     }
 
@@ -15,8 +12,26 @@ modules.gridManager = {
       verticalMargin: 10,
 
     };
+
     $('.grid-stack').gridstack(options);
     var gridStack = $('.grid-stack').data('gridstack');
+
+    $('.grid-stack').on('change', function(event, items) {
+        triggerUpdate();
+    });
+
+    var initNewWidget = function(content){
+      var widgetDefinition = {
+        x: 0,
+        y: 0,
+        width: 2,
+        height: 2,
+        content: content
+      };
+      var widget = addWidget(widgetDefinition);
+      resizeWidget(widget);
+      return widget;
+    };
 
     var addWidget = function(node) {
       return gridStack.addWidget($('<div><div class="grid-stack-item-content"><div class="item-content-container">' + node.content + '</div></div></div>'),
@@ -24,7 +39,6 @@ modules.gridManager = {
     };
 
     var resizeWidget = function(widget) {
-
       var widgetContent = widget.find('.grid-stack-item-content div');
       var contentWidth = widgetContent.width();
       var contentHeight = widgetContent.height();
@@ -56,7 +70,7 @@ modules.gridManager = {
       gridStack.removeWidget(widget);
     };
 
-    var save = function() {
+    var triggerUpdate = function() {
       var items = _.map($('.grid-stack .grid-stack-item:visible'), function(el) {
         el = $(el);
         var node = el.data('_gridstack_node');
@@ -69,18 +83,16 @@ modules.gridManager = {
           content: el.find('.grid-stack-item-content .item-content-container').html()
         };
       });
-      storage.saveItems(items);
+      $('body').trigger('gridchanged', {items: items});
+    //  storage.saveItems(items);
     };
 
-    var load = function() {
-      // todo use promise
-      $.when(storage.loadItems(name)).done(function(items){
-        serialization = GridStackUI.Utils.sort(items);
-        _.each(serialization, function(node) {
-          addWidget(node);
-        });
+    var load = function(items) {
+      serialization = GridStackUI.Utils.sort(items);
+      _.each(serialization, function(node) {
+        addWidget(node);
       });
-      gridStack.disable();
+      //gridStack.disable();
     };
 
     var enableEdit = function() {
@@ -89,9 +101,7 @@ modules.gridManager = {
 
     return {
       load: load,
-      save: save,
-      addWidget: addWidget,
-      resizeWidget: resizeWidget,
+      initNewWidget: initNewWidget,
       removeWidget: removeWidget,
       enableEdit: enableEdit
     };

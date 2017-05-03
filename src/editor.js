@@ -33,14 +33,15 @@ modules.editor = {
 
     var createWidget = function() {
       var saveAction = function(content) {
-        var widget = gridManager.addWidget({
-          x: 0,
-          y: 0,
-          width: 2,
-          height: 2,
-          content: content
-        });
-        gridManager.resizeWidget(widget);
+        $('body').trigger('newcontent', content);
+        // var widget = gridManager.addWidget({
+        //   x: 0,
+        //   y: 0,
+        //   width: 2,
+        //   height: 2,
+        //   content: content
+        // });
+        // gridManager.resizeWidget(widget);
         reloadEditOptions();
       };
       createEditor(saveAction);

@@ -4,16 +4,33 @@ $(function($) {
   if (name === 'localhost') {
     name = window.prompt("enter site name", "mysite.com");
   }
+
+  var state = {};
+
   // loadModules
   var storage = modules.storage.init(name, window);
-  var gridManager = modules.gridManager.init(storage, $);
+  var gridManager = modules.gridManager.init($);
   var editor = modules.editor.init(gridManager);
+  gridManager.enableEdit();
+  editor.showEditOptions();
 
-  gridManager.load(name);
+  $.when(storage.loadItems(name)).done(function(items) {
+    gridManager.load(items);
+  });
+
 
   $('#add-new-widget').click(editor.createWidget);
 
   $('#save').click(gridManager.save);
+
+  $('body').on('gridchanged', function(event, data) {
+    state.items = data.items;
+    storage.saveItems(data.items);
+  });
+
+  $('body').on('newcontent', function(event, content) {
+    gridManager.initNewWidget(content);
+  });
 
   var lock = new Auth0Lock('nXQj37lBSzxG-hfbH5zZecsrvX3vUU-7', 'robinwyss.auth0.com', {
     auth: {

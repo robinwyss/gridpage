@@ -1,5 +1,5 @@
 var modules = modules || {};
-modules.gridManager = {
+modules.grid = {
   init: function($) {
     if (!$) {
       throw 'error loading module, parameter jQuery is missing';
@@ -30,6 +30,7 @@ modules.gridManager = {
       };
       var widget = addWidget(widgetDefinition);
       resizeWidget(widget);
+      reloadEditOptions();
       return widget;
     };
 
@@ -84,7 +85,6 @@ modules.gridManager = {
         };
       });
       $('body').trigger('gridchanged', {items: items});
-    //  storage.saveItems(items);
     };
 
     var load = function(items) {
@@ -92,11 +92,36 @@ modules.gridManager = {
       _.each(serialization, function(node) {
         addWidget(node);
       });
-      //gridStack.disable();
+    };
+
+    var reloadEditOptions = function() {
+      hideEditOptions();
+      showEditOptions();
+    };
+
+    var showEditOptions = function() {
+      $('.grid-stack-item-content').append('<div class="grid-element-edit"><div><button class="btn edit">edit</button><button class="btn delete">delete</button></div></div>');
+      $('.grid-stack-item-content').find('button.edit').click(function(evt) {
+        var widget = $(evt.target).closest('.grid-stack-item');
+        var widgetContentContainer = widget.find('.grid-stack-item-content div');
+        var content = widgetContentContainer.html();
+        $('body').trigger('editwidgetcontent', {content: content, callback: function(content){
+          widgetContentContainer.html(content);
+        }});
+      });
+      $('.grid-stack-item-content').find('button.delete').click(function(evt) {
+        var widget = $(evt.target).closest('.grid-stack-item');
+        removeWidget(widget);
+      });
+    };
+
+    var hideEditOptions = function() {
+      $('.grid-stack-item-content .grid-element-edit').remove();
     };
 
     var enableEdit = function() {
       gridStack.enable();
+      showEditOptions();
     };
 
     return {

@@ -9,19 +9,18 @@ $(function($) {
 
   // loadModules
   var storage = modules.storage.init(name, window);
-  var gridManager = modules.gridManager.init($);
-  var editor = modules.editor.init(gridManager);
-  gridManager.enableEdit();
-  editor.showEditOptions();
+  var grid = modules.grid.init($);
+  var editor = modules.editor.init();
 
   $.when(storage.loadItems(name)).done(function(items) {
-    gridManager.load(items);
+    grid.load(items);
+    grid.enableEdit();
   });
 
 
   $('#add-new-widget').click(editor.createWidget);
 
-  $('#save').click(gridManager.save);
+  $('#save').click(grid.save);
 
   $('body').on('gridchanged', function(event, data) {
     state.items = data.items;
@@ -29,7 +28,11 @@ $(function($) {
   });
 
   $('body').on('newcontent', function(event, content) {
-    gridManager.initNewWidget(content);
+    grid.initNewWidget(content);
+  });
+
+  $('body').on('editwidgetcontent', function(event, data) {
+    editor.editWidget(data.content, data.callback);
   });
 
   var lock = new Auth0Lock('nXQj37lBSzxG-hfbH5zZecsrvX3vUU-7', 'robinwyss.auth0.com', {

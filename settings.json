@@ -1,0 +1,8 @@
+{
+  "cloudantSettings": {
+    "url": "https://robinwyss.cloudant.com",
+    "database": "gridpage",
+    "document": "cc1f2d5977d6eadda22aae6d282721d4",
+    "encryptedUsernamePassword": "U2FsdGVkX1/w3Xq9cnlvkLb7/fjZKcnjbwuNcwzZu0CT/wEcas4LjWJCxicKHS2sgxLzWrbjcampxIS+Ml1wpGGJtbS8dqOluO2KFqIxz2XFWitHmgL4ojHoH4lQk8f/"
+  }
+}
